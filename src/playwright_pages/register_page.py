@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from src.pages import base as base
-from src.pages.login_page import *
+
 from src.models.user import User
 import logging
 

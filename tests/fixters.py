@@ -9,6 +9,8 @@ from selenium.webdriver.chrome.options import Options
 
 from src.models.user import *
 from src.models.book import *
+from api.book_api import *
+
 
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
@@ -16,6 +18,8 @@ chrom_driver_path = r'C:\Users\inegr\Desktop\Michael_projects\chromedriver'
 
 # michael@kolet.com
 # 123456
+# "admin@sela.co.il
+# 1234
 
 
 def get_url():
@@ -30,8 +34,8 @@ url = get_url()
 
 @pytest.fixture()
 def user():
-    data = {'mail': 'michael@kolet.com',
-            'password': '123456',
+    data = {'mail': 'admin@sela.co.il',
+            'password': '1234',
             'first_name': 'michael',
             'last_name': 'kolet'
             }
@@ -39,14 +43,24 @@ def user():
     return User(**data)
 
 @pytest.fixture()
-def book():
-    data = {
-    "id": 3,
-    "name": "The Hunger Games",
-    "description": "The Hunger Games is a 2008 dystopian novel by the American writer Suzanne Collins",
-    "price": 50,
-    "amountInStock": 8,
-    "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61i8nC90deL.jpg",
-    "authorId": 2
-    }
-    return Book(**data)
+def user2():
+    data = {'mail': 'michael@sela.co.il',
+            'password': '1234',
+            'first_name': 'michael',
+            'last_name': 'kolet'
+            }
+
+    return User(**data)
+
+@pytest.fixture()
+def url1():
+    return 'http://localhost:7017/api/Books/'
+
+@pytest.fixture()
+def books(url1):
+    return Book_api(url1)
+
+
+@pytest.fixture()
+def book(books):
+    return books.get_book_byId(3)
