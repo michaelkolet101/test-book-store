@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ace0b494-3eba-4298-876e-3ff17f2f7fa2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/STD document for bookstore website.docx" beforeDir="false" afterPath="$PROJECT_DIR$/STD document for bookstore website.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/book_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/book_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/auters_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auters_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/login_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/register_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/welcome_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/welcome_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/book_store_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/book_store_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/fixters.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/~$D document for bookstore website.docx" beforeDir="false" afterPath="$PROJECT_DIR$/~$D document for bookstore website.docx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,28 +42,7 @@
       <recent name="C:\Users\inegr\Desktop\מיכאל תיכנות ופרוייקטים\test-book-store\src\playwright_pages" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for book_store_test.test_bookstore_button">
-    <configuration name="account_api" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="test-book-store" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/api" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/api/account_api.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Python tests for book_store_test.test_authrs_button">
     <configuration name="book_api" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="test-book-store" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -113,20 +85,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for book_api.test_1" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="test-book-store" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/api" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;book_api.test_1&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Python tests for book_store_test.test_add_author" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="test-book-store" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,6 +96,20 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;book_store_test.test_add_author&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for book_store_test.test_authrs_button" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="test-book-store" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;book_store_test.test_authrs_button&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -155,13 +127,27 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for book_store_test.test_store_button" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="test-book-store" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;book_store_test.test_store_button&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for book_store_test.test_authrs_button" />
+        <item itemvalue="Python tests.Python tests for book_store_test.test_store_button" />
         <item itemvalue="Python tests.Python tests for book_store_test.test_bookstore_button" />
         <item itemvalue="Python tests.Python tests for book_store_test.test_add_author" />
         <item itemvalue="Python.book_api" />
-        <item itemvalue="Python tests.Python tests for book_api.test_1" />
-        <item itemvalue="Python.account_api" />
       </list>
     </recent_temporary>
   </component>

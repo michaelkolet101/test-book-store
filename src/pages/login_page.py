@@ -25,7 +25,8 @@ class Login_page(base.Base_page):
         'submit': (By.XPATH, '//*[@id="root"]/div/form/button'),
         'login_btn': (By.XPATH, '//*[@id="root"]/nav/div/div/a[3]'),
         'logout_btn': (By.XPATH, '//*[@id="root"]/nav/div/div/button'),
-        'bokstore': (By.LINK_TEXT, ' Book Store')
+        'bokstore': (By.LINK_TEXT, 'Book Store'),
+        'store': (By.LINK_TEXT, 'Store')
     }
 
 
@@ -63,7 +64,12 @@ class Login_page(base.Base_page):
 
         return Welcome_page(self._driver)
 
-    def bokstore(self):
+    def bookstore(self):
         bokstore_btn = self.find_element(*self.locator["bokstore"])
         bokstore_btn.click()
+        return Welcome_page(self._driver)
+
+    def store(self):
+        store_btn = self.find_element(*self.locator["store"])
+        store_btn.click()
         return Welcome_page(self._driver)

@@ -1,3 +1,4 @@
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,12 +27,12 @@ class Auters_page(base.Base_page):
         print(back.text)
         return back.text == 'Back To Login'
 
-    # TODO move the link to someting else
-    def get_authors_count(self):
-        a = Authors_api('http://localhost:7017/api')
-        return len(a.get_all_auters())
 
-    def get_auters(self):
+    def get_authors_count(self, authors: Authors_api):
+        return len(authors.get_all_auters())
+
+    def get_authoers(self, authors: Authors_api):
+
         auters_list = self.find_elements(*self.locator['authors_list'])
         count = 0
         for item in auters_list:
@@ -39,8 +40,8 @@ class Auters_page(base.Base_page):
             logging.info(item.text)
 
         logging.info(f'my_count {count}')
-        logging.info(f'count in db {self.get_authors_count()}')
-        count_in_db = self.get_authors_count()
+        logging.info(f'count in db {self.get_authors_count(authors)}')
+        count_in_db = self.get_authors_count(authors)
 
         assert count_in_db == count
 

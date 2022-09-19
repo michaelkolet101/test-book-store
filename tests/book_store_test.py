@@ -29,11 +29,11 @@ def test_buying_abook(setup, user, book):
 
 
 # Test Authrs button
-def test_authrs_button(setup, user):
+def test_authrs_button(setup, user, authors):
     welcome_page = setup.submit(user)
     welcome_page.chack_page()
     auters_page_ = welcome_page.auters()
-    auters_page_.get_auters()
+    auters_page_.get_authoers(authors)
 
 # Test for adding a new author to the system
 def test_add_author(user, account, author, authors, setup):
@@ -59,10 +59,15 @@ def test_add_author(user, account, author, authors, setup):
 # Test of the bookstore button in the top menu
 def test_bookstore_button(setup):
     login_page_ = setup
-    welcome_page_ = login_page_.bokstore()
+    welcome_page_ = login_page_.bookstore()
     welcome_page_.chack_page()
 
 
+# Test the store button in the top menu
+def test_store_button(setup):
+    login_page_ = setup
+    welcome_page_ = login_page_.store()
+    welcome_page_.chack_page()
 
 
 
