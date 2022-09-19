@@ -6,6 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from src.pages import base as base
 from src.pages.register_page import Register_page
 from src.pages.auters_page import Auters_page
+from src.pages.result_page import Result_page
+
+
 from src.models.user import *
 from src.models.book import *
 from api.book_api import *
@@ -24,7 +27,10 @@ class Welcome_page(base.Base_page):
         "welcome": (By.XPATH, '//*[@id="root"]/div/h1'),
         'books_container': (By.CLASS_NAME, 'book-container'),
         'book-container': (By.CLASS_NAME, 'book-container'),
-        'btn': (By.TAG_NAME, 'button')
+        'btn': (By.TAG_NAME, 'button'),
+        'login_btn': (By.LINK_TEXT, 'Log In'),
+        'src_box': (By.ID, 'searchtext'),
+        'search_btn': (By.CLASS_NAME, 'btn-outline-success')
     }
 
 
@@ -60,9 +66,20 @@ class Welcome_page(base.Base_page):
         assert book_amount_befor - book_amount_after == 1
 
     def auters(self):
-        auters_btn = self.find_element(*self.locs['Authors'])
+        auters_btn = self.find_element(*self.locator['Authors'])
         auters_btn.click()
         return Auters_page(self._driver)
 
+    def login(self):
+        login_btn = self.find_element(*self.locator['login_btn'])
+        login_btn.click()
+        return self._driver
 
+    def search(self, test_to_search: str) -> Result_page:
+        search_box = self.find_element(*self.locator['src_box'])
+        search_box.send_keys(test_to_search)
 
+        search_btn = self.find_element(*self.locator['search_btn'])
+        search_btn.click()
+        search_btn.click()
+        return Result_page(self._driver)

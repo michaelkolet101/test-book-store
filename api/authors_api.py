@@ -30,6 +30,10 @@ class Authors_api(baseObj):
         res = self._session.delete(f'{self._url}{authors_id}')
         return res.status_code
 
+    def get_author_byid(self, autore_id) -> Author:
+        res = self._session.get(f'{self._url}{autore_id}')
+        return Author(**res.json())
+
 #
 # a = Authors_api('http://localhost:7017/api')
 # list_of_authors = a.get_all_auters()

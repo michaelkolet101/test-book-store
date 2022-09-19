@@ -1,8 +1,6 @@
 import pytest
-
 from src.pages.login_page import *
 from src.pages.auters_page import *
-
 import logging
 
 
@@ -69,6 +67,39 @@ def test_store_button(setup):
     welcome_page_ = login_page_.store()
     welcome_page_.chack_page()
 
+# Test the login button in the top menu
+def test_login_button(setup):
+    login_page_ = setup
+    welcome_page_ = login_page_.store()
+    welcome_page_.chack_page()
+    login_page_ = welcome_page_.login()
 
+# Test adding a book to the author
+def test_add_book(user, account, author, authors, setup, books, book):
 
+    # Log in through the swagger and log in as an admin user
+    # add a new author
+    res = authors.add_new_authors(author)
+    logging.info(res.status_code)
+    author_id = res.json()["id"]
+
+    # We will add a book to the author of the book
+    ans = books.put_book_to_author(book, author_id)
+    logging.info(ans)
+
+    # We will make sure that the book has been added to the author in the database
+    our_author = authors.get_author_byid(author_id)
+    assert our_author.get_books()[0]['id'] == 3
+
+    # entered the site
+    # enters the user information and click submit
+    welcome_page_ = setup.submit(user)
+
+    # We will look for the author's name in the search box
+    result_page_ = welcome_page_.search(author.get_name())
+
+    # Click on a button to the author page
+   # author_info_page_ = result_page_.author_info()
+
+    # We will look for the book we added to the author in the information about it
 

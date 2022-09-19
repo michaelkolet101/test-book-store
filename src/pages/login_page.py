@@ -2,10 +2,12 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from src.pages import base as base
+
+from src.pages.welcome_page import Welcome_page
+from src.pages.base import Base_page
 from src.pages.register_page import Register_page
 from src.models.user import *
-from src.pages.welcome_page import Welcome_page
+
 import logging
 
 
@@ -13,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 my_logger = logging.getLogger()
 
 
-class Login_page(base.Base_page):
+class Login_page(Base_page):
 
     def __init__(self, driver: webdriver):
         self._driver = driver

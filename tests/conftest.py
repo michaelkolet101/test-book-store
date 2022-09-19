@@ -142,4 +142,6 @@ def book(books):
 def account(url_for_account, get_session):
     return Account_api(url_for_account, get_session)
 
-
+@pytest.fixture(scope='session')
+def get_book():
+    pass
