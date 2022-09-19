@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from src.pages import base as base
 from src.pages.register_page import Register_page
 from src.models.user import *
-from src.pages.welcome_page import *
+from src.pages.welcome_page import Welcome_page
 import logging
 
 
@@ -24,7 +24,8 @@ class Login_page(base.Base_page):
         "password": (By.ID, 'password'),
         'submit': (By.XPATH, '//*[@id="root"]/div/form/button'),
         'login_btn': (By.XPATH, '//*[@id="root"]/nav/div/div/a[3]'),
-        'logout_btn': (By.XPATH, '//*[@id="root"]/nav/div/div/button')
+        'logout_btn': (By.XPATH, '//*[@id="root"]/nav/div/div/button'),
+        'bokstore': (By.LINK_TEXT, ' Book Store')
     }
 
 
@@ -62,3 +63,7 @@ class Login_page(base.Base_page):
 
         return Welcome_page(self._driver)
 
+    def bokstore(self):
+        bokstore_btn = self.find_element(*self.locator["bokstore"])
+        bokstore_btn.click()
+        return Welcome_page(self._driver)

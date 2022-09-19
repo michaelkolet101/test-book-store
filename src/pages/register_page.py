@@ -3,8 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from src.pages import base as base
-from src.pages.login_page import *
+
+# from src.pages.login_page import Login_page
 from src.models.user import User
+
 import logging
 
 
@@ -50,4 +52,10 @@ class Register_page(base.Base_page):
     def submit(self):
         btn = self.find_element(*self.locator["submit"])
         btn.click()
-        return Login_page(self._driver)
+        return self._driver
+
+# TODO fix that the Loging page will return
+    def back(self):
+        btn = self.find_element(*self.locator['Back'])
+        btn.click()
+        # return Login_page(self._driver)

@@ -2,8 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 from src.pages import base as base
 from src.pages.register_page import Register_page
+from src.pages.auters_page import Auters_page
 from src.models.user import *
 from src.models.book import *
 from api.book_api import *
@@ -56,4 +58,11 @@ class Welcome_page(base.Base_page):
 
         logging.info(book_amount_after)
         assert book_amount_befor - book_amount_after == 1
+
+    def auters(self):
+        auters_btn = self.find_element(*self.locs['Authors'])
+        auters_btn.click()
+        return Auters_page(self._driver)
+
+
 
