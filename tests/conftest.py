@@ -1,6 +1,7 @@
 
 import requests
 import pytest
+from playwright.sync_api import sync_playwright
 import logging
 from optparse import OptionParser
 from selenium import webdriver
@@ -8,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+
 from src.pages.login_page import *
 from src.pages.welcome_page import *
 from src.models.user import *
@@ -15,6 +17,8 @@ from src.models.book import *
 from api.book_api import *
 from api.authors_api import Authors_api
 from api.account_api import Account_api
+
+import src.playwright_pages.login_page as login_play
 
 logging.basicConfig(level=logging.INFO)
 my_logger = logging.getLogger()
@@ -48,16 +52,40 @@ def get_swagger():
     (options, args) = parser.parse_args()
     return options.SWAGGER
 
+@pytest.fixture(scope='session')
+def get_metood():
+    parser = OptionParser()
+    parser.add_option("--m",
+                      action="store",
+                      type="string",
+                      dest="metood",
+                      default="playwright")
+
+    (options, args) = parser.parse_args()
+    return options.metood
 
 
 
 
 @pytest.fixture
-def setup(get_url):
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-    driver.maximize_window()
-    driver.get(get_url)
-    return Login_page(driver)
+def setup(get_url, get_metood):
+    metood = get_metood
+
+    if get_metood == 'selenium':
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+        driver.maximize_window()
+        driver.get(get_url)
+        return Login_page(driver)
+
+    elif get_metood == 'playwright':
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=False)
+            page = browser.new_page()
+            page.goto(get_url)
+            yield login_play.Login_page(page)
+            page.close()
+
+
 
 
 @pytest.fixture(scope='session')

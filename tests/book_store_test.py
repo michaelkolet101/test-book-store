@@ -1,7 +1,7 @@
 import pytest
-from src.pages.login_page import *
-from src.pages.auters_page import *
+
 import logging
+import time
 
 
 # Test the registration button on the login screen
@@ -9,29 +9,30 @@ def test_register_btn(setup, user2):
     register_page = setup.click_register()
     register_page.add_new_user(user2)
     register_page.submit()
-    login_page_ = register_page.back()
-    # TODO understand way not recohnise logging_page!
+    register_page.back()
+    welcome_page = setup.submit(user2)
+    welcome_page.chack_page()
 
 
 def test_login(setup, user):
     logging.info(setup)
-    welcome_page = setup.submit(user)
-    welcome_page.chack_page()
+    welcome_page_ = setup.submit(user)
+    welcome_page_.chack_page()
 
 
 # Test for the process of buying a book on the website
-def test_buying_abook(setup, user, book):
+def test_buying_abook(setup, user, book, books):
     # Enter the user information and click submit
     welcome_page = setup.submit(user)
-    welcome_page.buy_book(book)
+    welcome_page.buy_book(book, books)
 
 
 # Test Authrs button
-def test_authrs_button(setup, user, authors):
+def test_authors_button(setup, user, authors):
     welcome_page = setup.submit(user)
     welcome_page.chack_page()
     auters_page_ = welcome_page.auters()
-    auters_page_.get_authoers(authors)
+    auters_page_.cheack_authoers(authors)
 
 # Test for adding a new author to the system
 def test_add_author(user, account, author, authors, setup):
@@ -55,7 +56,7 @@ def test_add_author(user, account, author, authors, setup):
 
 
 # Test of the bookstore button in the top menu
-def test_bookstore_button(setup):
+def test_bookstore_button(setup, user):
     login_page_ = setup
     welcome_page_ = login_page_.bookstore()
     welcome_page_.chack_page()
