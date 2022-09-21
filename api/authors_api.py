@@ -15,9 +15,7 @@ class Authors_api(baseObj):
         self._session = session
 
 
-
-
-    def get_all_auters(self) -> [Author]:
+    def get_all_auters(self) -> json:
         response = self._session.get(f'{self._url}')
         return response.json()
 

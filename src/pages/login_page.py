@@ -45,10 +45,13 @@ class Login_page(Base_page):
 
     def submit(self, user: User):
 
-        login_btn = self.find_element(*self.locator["login_btn"])
+        try:
+            login_btn = self.find_element(*self.locator["login_btn"])
+        except:
+            assert False
+
         logging.info(login_btn.text)
         assert 'Log In' == login_btn.text
-
 
         # find and fill mail
         mail = self.find_element(*self.locator["mail"])

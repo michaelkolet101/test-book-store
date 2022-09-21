@@ -2,7 +2,7 @@ import requests
 from src.models.book import *
 from src.models.Author import Author
 from src.models.baseObj import baseObj
-
+import json
 
 class Book_api(baseObj):
 
@@ -30,10 +30,10 @@ class Book_api(baseObj):
         return response.status_code
 
 
-
+#
 # b = Book_api('http://localhost:7017/api/Books/', requests.session())
 #
-# b1 = b.get_book_byId(3)
+# b1 = b.get_book_byId(1)
 #
 # print(b1.get_amountInStock())
 #

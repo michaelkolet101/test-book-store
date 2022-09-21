@@ -31,7 +31,7 @@ class Auters_page(Base_page):
     def get_authors_count(self, authors: Authors_api):
         return len(authors.get_all_auters())
 
-    def get_authoers(self, authors: Authors_api):
+    def cheack_authoers(self, authors: Authors_api):
 
         auters_list = self.find_elements(*self.locator['authors_list'])
         count = 0

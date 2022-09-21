@@ -1,4 +1,3 @@
-
 import requests
 import pytest
 from playwright.sync_api import sync_playwright
@@ -13,6 +12,7 @@ from selenium.webdriver.chrome.options import Options
 from src.pages.login_page import *
 from src.pages.welcome_page import *
 from src.models.user import *
+
 from src.models.book import *
 from api.book_api import *
 from api.authors_api import Authors_api
@@ -23,14 +23,9 @@ import src.playwright_pages.login_page as login_play
 logging.basicConfig(level=logging.INFO)
 my_logger = logging.getLogger()
 
-
-
 chrome_options = Options()
-chrome_options.add_experimental_option("detach", True)
+chrome_options.add_experimental_option("detach", False)
 chrom_driver_path = r'C:\Users\inegr\Desktop\Michael_projects\chromedriver'
-
-
-
 
 
 @pytest.fixture
@@ -39,6 +34,7 @@ def get_url():
     parser.add_option("--u", action="store", type="string", dest="URL", default="http://localhost/")
     (options, args) = parser.parse_args()
     return options.URL
+
 
 @pytest.fixture(scope='session')
 def get_swagger():
@@ -52,6 +48,7 @@ def get_swagger():
     (options, args) = parser.parse_args()
     return options.SWAGGER
 
+
 @pytest.fixture(scope='session')
 def get_metood():
     parser = OptionParser()
@@ -59,33 +56,30 @@ def get_metood():
                       action="store",
                       type="string",
                       dest="metood",
-                      default="playwright")
+                      default="selenium")
 
     (options, args) = parser.parse_args()
+    print(options.metood)
     return options.metood
-
-
 
 
 @pytest.fixture
 def setup(get_url, get_metood):
     metood = get_metood
 
-    if get_metood == 'selenium':
+    if metood == 'selenium':
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
         driver.maximize_window()
         driver.get(get_url)
-        return Login_page(driver)
+        yield Login_page(driver)
 
-    elif get_metood == 'playwright':
+    elif metood == 'playwright':
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=False)
             page = browser.new_page()
             page.goto(get_url)
             yield login_play.Login_page(page)
             page.close()
-
-
 
 
 @pytest.fixture(scope='session')
@@ -97,6 +91,7 @@ def user():
             }
 
     return User(**data)
+
 
 @pytest.fixture(scope='session')
 def user2():
@@ -129,8 +124,8 @@ def get_session(user, url_for_account):
     session = requests.session()
 
     d = {'email': 'admin@sela.co.il',
-            'password': '1234'
-            }
+         'password': '1234'
+         }
 
     res = session.post(f'{url_for_account}login', json=d)
     logging.info(res.json())
@@ -141,6 +136,9 @@ def get_session(user, url_for_account):
     session.headers.update(h)
     return session
 
+@pytest.fixture(scope='session')
+def accounts(url_for_account, get_session):
+    return Account_api(url_for_account, get_session)
 
 @pytest.fixture(scope='session')
 def authors(url_for_authors, get_session):
@@ -150,7 +148,7 @@ def authors(url_for_authors, get_session):
 @pytest.fixture(scope='session')
 def author():
     d = {"name": "dani Din",
-          "id": 3,
+         "id": 3,
          "homeLatitude": 41.76758,
          "homeLongitude": 22.70144
          }
@@ -164,11 +162,12 @@ def books(url1, get_session):
 
 @pytest.fixture(scope='session')
 def book(books):
-    return books.get_book_byId(3)
+    return books.get_book_byId(1)
 
 @pytest.fixture(scope='session')
 def account(url_for_account, get_session):
     return Account_api(url_for_account, get_session)
+
 
 @pytest.fixture(scope='session')
 def get_book():

@@ -12,7 +12,7 @@ class Base_page:
 
 
 
-    def find_element(self, by_find, token, wait=30):
+    def find_element(self, by_find, token, wait=5):
         elem = WebDriverWait(self._driver, wait).until(EC.presence_of_element_located((by_find, token)))
         return elem
 
@@ -20,4 +20,5 @@ class Base_page:
         elements = self._driver.find_elements(by_find, token)
         return elements
 
-
+    def close(self):
+        self._driver.quit()

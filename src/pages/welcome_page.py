@@ -7,7 +7,7 @@ from src.pages import base as base
 from src.pages.register_page import Register_page
 from src.pages.auters_page import Auters_page
 from src.pages.result_page import Result_page
-
+import time
 
 from src.models.user import *
 from src.models.book import *
@@ -27,47 +27,50 @@ class Welcome_page(base.Base_page):
         "welcome": (By.XPATH, '//*[@id="root"]/div/h1'),
         'books_container': (By.CLASS_NAME, 'book-container'),
         'book-container': (By.CLASS_NAME, 'book-container'),
-        'btn': (By.TAG_NAME, 'button'),
+        'btn_buy': (By.XPATH, '//*[@id="root"]/div/div/div/div[1]/div/div[2]/button'),
         'login_btn': (By.LINK_TEXT, 'Log In'),
         'src_box': (By.ID, 'searchtext'),
-        'search_btn': (By.CLASS_NAME, 'btn-outline-success')
+        'search_btn': (By.CLASS_NAME, 'btn-outline-success'),
+        'Authors': (By.LINK_TEXT, 'Authors')
     }
 
 
     def chack_page(self):
 
-        res = self.find_element(*self.locator['welcome'])
-        assert res.text == 'Welcome to our store'
+        flag = False
+        try:
+            res = self.find_element(*self.locator['welcome'])
+            flag = True
+        except:
+            res = self.find_element(*self.locator['login_btn'])
+
+        logging.info(res.text)
+        assert flag
 
 
-# TODO see in comments
-    def buy_book(self, book: Book):
 
-        book_container = self.find_elements(*self.locator['book-container'])
-        btn = ""
-        for book_ in book_container:
-            if book.get_name() in book_.text:
-                logging.info(book_.text)
-                btn = book_.find_element(*self.locator['btn'])
-                break
+    def buy_book(self, book: Book, books: Book_api):
+        logging.info(book.get_name())
+        count_of_books_before = books.get_book_byId(book.get_id()).get_amountInStock()
+        logging.info(count_of_books_before)
 
-        logging.info(btn.text)
-        book_amount_befor = book.get_amountInStock()
-        assert book_amount_befor > 0
-        # TODO the click not work!
-        #btn.click()
+        buy_btn = self.find_element(*self.locator['btn_buy'])
+        buy_btn.click()
+        time.sleep(3)
 
-        # TODO move the url to some fixters
-        b = Book_api('http://localhost:7017/api/Books/')
-        b1 = b.get_book_byId(3)
-        book_amount_after = b1.get_amountInStock()
+        count_of_books_after = books.get_book_byId(book.get_id()).get_amountInStock()
+        logging.info(count_of_books_after)
 
-        logging.info(book_amount_after)
-        assert book_amount_befor - book_amount_after == 1
+        assert count_of_books_after + 1 == count_of_books_before
+
+
+
+
+
 
     def auters(self):
-        auters_btn = self.find_element(*self.locator['Authors'])
-        auters_btn.click()
+        authors_btn = self.find_element(*self.locator['Authors'])
+        authors_btn.click()
         return Auters_page(self._driver)
 
     def login(self):

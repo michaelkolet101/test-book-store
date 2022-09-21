@@ -3,7 +3,7 @@ from src.models.baseObj import *
 
 class User(baseObj):
 
-	def __init__(self, mail, password, first_name, last_name):
+	def __init__(self, mail: str, password: str, first_name: str, last_name: str):
 		self._mail = mail
 		self._password = password
 		self._first_name = first_name

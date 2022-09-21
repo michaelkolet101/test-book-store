@@ -58,4 +58,5 @@ class Register_page(base.Base_page):
     def back(self):
         btn = self.find_element(*self.locator['Back'])
         btn.click()
-        # return Login_page(self._driver)
+        self._driver.quit()
+

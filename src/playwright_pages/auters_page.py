@@ -58,3 +58,4 @@ class Auters_page(Base_page):
                 check = True
                 break
         return check
+

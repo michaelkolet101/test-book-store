@@ -14,13 +14,14 @@ class Account_api(baseObj):
         self._session = session
 
 
-    def login(self, user: User):
+    def login(self, user: User) -> int:
         data = {
               "email": user.get_mail(),
               "password": user.get_password()
             }
+
         res = self._session.post(f'{self._url}login', json=data)
-        return res
+        return res.status_code
 
 # a = Account_api('http://localhost:7017/api')
 #

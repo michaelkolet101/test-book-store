@@ -5,38 +5,45 @@ import time
 
 
 # Test the registration button on the login screen
-def test_register_btn(setup, user2):
+def test_register(setup, user2, accounts):
+    logging.info('test_register')
     register_page = setup.click_register()
     register_page.add_new_user(user2)
     register_page.submit()
     register_page.back()
-    welcome_page = setup.submit(user2)
-    welcome_page.chack_page()
+    # check login with the api login
+    assert accounts.login(user2) < 400
 
 
 def test_login(setup, user):
+    logging.info('test_login')
     logging.info(setup)
     welcome_page_ = setup.submit(user)
     welcome_page_.chack_page()
+    welcome_page_.close()
 
 
 # Test for the process of buying a book on the website
 def test_buying_abook(setup, user, book, books):
+    logging.info('test_buying_abook')
     # Enter the user information and click submit
     welcome_page = setup.submit(user)
     welcome_page.buy_book(book, books)
+    welcome_page.close()
 
 
 # Test Authrs button
 def test_authors_button(setup, user, authors):
+    logging.info('test_authors_button')
     welcome_page = setup.submit(user)
     welcome_page.chack_page()
     auters_page_ = welcome_page.auters()
     auters_page_.cheack_authoers(authors)
+    auters_page_.close()
 
 # Test for adding a new author to the system
 def test_add_author(user, account, author, authors, setup):
-
+    logging.info('test_add_author')
     # add a new author
     res = authors.add_new_authors(author)
     logging.info(res.status_code)
@@ -57,6 +64,7 @@ def test_add_author(user, account, author, authors, setup):
 
 # Test of the bookstore button in the top menu
 def test_bookstore_button(setup, user):
+    logging.info('test_bookstore_button')
     login_page_ = setup
     welcome_page_ = login_page_.bookstore()
     welcome_page_.chack_page()
@@ -64,12 +72,14 @@ def test_bookstore_button(setup, user):
 
 # Test the store button in the top menu
 def test_store_button(setup):
+    logging.info('test_store_button')
     login_page_ = setup
     welcome_page_ = login_page_.store()
     welcome_page_.chack_page()
 
 # Test the login button in the top menu
 def test_login_button(setup):
+    logging.info('test_login_button')
     login_page_ = setup
     welcome_page_ = login_page_.store()
     welcome_page_.chack_page()
@@ -78,6 +88,7 @@ def test_login_button(setup):
 # Test adding a book to the author
 def test_add_book(user, account, author, authors, setup, books, book):
 
+    logging.info('test_add_book')
     # Log in through the swagger and log in as an admin user
     # add a new author
     res = authors.add_new_authors(author)
@@ -90,17 +101,14 @@ def test_add_book(user, account, author, authors, setup, books, book):
 
     # We will make sure that the book has been added to the author in the database
     our_author = authors.get_author_byid(author_id)
-    assert our_author.get_books()[0]['id'] == 3
+    assert our_author.get_books()[0]['id'] == book.get_id()
 
-    # entered the site
-    # enters the user information and click submit
-    welcome_page_ = setup.submit(user)
 
-    # We will look for the author's name in the search box
-    result_page_ = welcome_page_.search(author.get_name())
+def test_cleanup(authors):
+    list_of_authores = authors.get_all_auters()
+    logging.info(list_of_authores)
 
-    # Click on a button to the author page
-   # author_info_page_ = result_page_.author_info()
-
-    # We will look for the book we added to the author in the information about it
+    for item in list_of_authores:
+        if int(item['id']) > 3:
+            authors.remove_authors_byid(int(item['id']))
 

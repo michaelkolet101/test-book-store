@@ -38,7 +38,6 @@ class Welcome_page(Base_page):
 
     def chack_page(self):
 
-
         flag = False
         try:
             res = self.find_element(self.locator['welcome'])
