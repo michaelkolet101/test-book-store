@@ -25,43 +25,26 @@ my_logger = logging.getLogger()
 
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", False)
-chrom_driver_path = r'C:\Users\inegr\Desktop\Michael_projects\chromedriver'
+
+def pytest_addoption(parser):
+    parser.addoption("--u", action="store", default="http://localhost/")
+    parser.addoption("--s", action="store", default="http://localhost:7017/api")
+    parser.addoption("--m", action="store", default="selenium")
 
 
-@pytest.fixture
-def get_url():
-    parser = OptionParser()
-    parser.add_option("--u", action="store", type="string", dest="URL", default="http://localhost/")
-    (options, args) = parser.parse_args()
-    return options.URL
-
-
-@pytest.fixture(scope='session')
-def get_swagger():
-    parser = OptionParser()
-    parser.add_option("--s",
-                      action="store",
-                      type="string",
-                      dest="SWAGGER",
-                      default="http://localhost:7017/api")
-
-    (options, args) = parser.parse_args()
-    return options.SWAGGER
+@pytest.fixture(scope="session")
+def get_url(pytestconfig):
+    return pytestconfig.getoption("u")
 
 
 @pytest.fixture(scope='session')
-def get_metood():
-    parser = OptionParser()
-    parser.add_option("--m",
-                      action="store",
-                      type="string",
-                      dest="metood",
-                      default="selenium")
+def get_swagger(pytestconfig):
+    return pytestconfig.getoption("s")
 
-    (options, args) = parser.parse_args()
-    print(options.metood)
-    return options.metood
 
+@pytest.fixture(scope='session')
+def get_metood(pytestconfig):
+    return pytestconfig.getoption("m")
 
 @pytest.fixture
 def setup(get_url, get_metood):
@@ -162,13 +145,10 @@ def books(url1, get_session):
 
 @pytest.fixture(scope='session')
 def book(books):
-    return books.get_book_byId(1)
+    return books.get_book_byId(2)
 
 @pytest.fixture(scope='session')
 def account(url_for_account, get_session):
     return Account_api(url_for_account, get_session)
 
 
-@pytest.fixture(scope='session')
-def get_book():
-    pass
