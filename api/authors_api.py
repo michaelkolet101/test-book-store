@@ -19,7 +19,7 @@ class Authors_api(baseObj):
         response = self._session.get(f'{self._url}')
         return response.json()
 
-    def add_new_authors(self, new_author: Author):
+    def add_new_authors(self, new_author: Author) ->int:
         d = new_author.to_json()
         response = self._session.post(f'{self._url}', json=d, headers=self._headrs)
         return response
@@ -30,17 +30,23 @@ class Authors_api(baseObj):
 
     def get_author_byid(self, autore_id) -> Author:
         res = self._session.get(f'{self._url}{autore_id}')
-        return Author(**res.json())
+        if res.status_code < 400:
+            return Author(**res.json())
+        else:
+            return res.status_code
+
+
+
 
 #
-# a = Authors_api('http://localhost:7017/api')
+# a = Authors_api('http://localhost:7017/api', requests.session())
 # list_of_authors = a.get_all_auters()
-# print(len(list_of_authors))
-# d = {"name": "dani Din",
-#      "id": 3,
-#      "homeLatitude": 41.76758,
+# print(list_of_authors)
+# # d = {"name": "dani Din",
+# #      "id": 3,
+# #      "homeLatitude": 41.76758,
 #      "homeLongitude": 22.70144
 #      }
 # b = Author(**d)
-
-#print(a.add_new_authors(b))
+#
+# print(a.add_new_authors(b))

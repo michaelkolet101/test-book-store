@@ -50,11 +50,16 @@ def test_add_author(user, account, author, authors, setup):
     logging.info(res.json())
     author_id = res.json()["id"]
 
+    # check if it created
+    aut = authors.get_author_byid(author_id)
+    assert aut.get_id() == author_id
+
+
     # Check if the author of the book is on the list of authors on the website
     welcome_page = setup.submit(user)
     welcome_page.chack_page()
-    auters_page_ = welcome_page.auters()
-    assert auters_page_.find_author(author)
+    authors_page_ = welcome_page.auters()
+    assert authors_page_.find_author(author)
 
     # remove the new author
     status = authors.remove_authors_byid(author_id)
@@ -85,6 +90,7 @@ def test_login_button(setup):
     welcome_page_.chack_page()
     login_page_ = welcome_page_.login()
 
+
 # Test adding a book to the author
 def test_add_book(user, account, author, authors, setup, books, book):
 
@@ -94,21 +100,33 @@ def test_add_book(user, account, author, authors, setup, books, book):
     res = authors.add_new_authors(author)
     logging.info(res.status_code)
     author_id = res.json()["id"]
+    logging.info(author_id)
+
+    # add book to db
+    res = books.post_new_book(book, author_id)
+    logging.info(res.json())
+
+    book_id = res.json()["id"]
+    logging.info(book_id)
+    book.set_id(book_id)
 
     # We will add a book to the author of the book
     ans = books.put_book_to_author(book, author_id)
-    logging.info(ans)
+    logging.info(f"my ans {ans}")
 
     # We will make sure that the book has been added to the author in the database
     our_author = authors.get_author_byid(author_id)
+    logging.info(our_author.get_books())
     assert our_author.get_books()[0]['id'] == book.get_id()
+    authors.remove_authors_byid(author_id)
 
 
+# danger zone
 def test_cleanup(authors):
     list_of_authores = authors.get_all_auters()
     logging.info(list_of_authores)
 
     for item in list_of_authores:
-        if int(item['id']) > 3:
+        if int(item['id']) > 100:
             authors.remove_authors_byid(int(item['id']))
 

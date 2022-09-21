@@ -26,6 +26,7 @@ my_logger = logging.getLogger()
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", False)
 
+
 def pytest_addoption(parser):
     parser.addoption("--u", action="store", default="http://localhost/")
     parser.addoption("--s", action="store", default="http://localhost:7017/api")
@@ -45,6 +46,7 @@ def get_swagger(pytestconfig):
 @pytest.fixture(scope='session')
 def get_metood(pytestconfig):
     return pytestconfig.getoption("m")
+
 
 @pytest.fixture
 def setup(get_url, get_metood):
@@ -119,9 +121,11 @@ def get_session(user, url_for_account):
     session.headers.update(h)
     return session
 
+
 @pytest.fixture(scope='session')
 def accounts(url_for_account, get_session):
     return Account_api(url_for_account, get_session)
+
 
 @pytest.fixture(scope='session')
 def authors(url_for_authors, get_session):
@@ -144,11 +148,18 @@ def books(url1, get_session):
 
 
 @pytest.fixture(scope='session')
-def book(books):
-    return books.get_book_byId(2)
+def book(author):
+    d = {
+        "name": "my_life",
+        "description": "story of my life",
+        "price": 1000,
+        "amountInStock": 100,
+        "imageUrl": "string",
+        "authorId": author.get_id()
+    }
+    return Book(**d)
+
 
 @pytest.fixture(scope='session')
 def account(url_for_account, get_session):
     return Account_api(url_for_account, get_session)
-
-

@@ -29,7 +29,11 @@ class Book_api(baseObj):
         response = self._session.put(f'{self._url}{book.get_id()}', json=d)
         return response.status_code
 
-
+    def post_new_book(self, book: Book, author_id: int):
+        book.set_authorId(author_id)
+        d = book.to_json()
+        res = self._session.post(f'{self._url}', json=d)
+        return res
 #
 # b = Book_api('http://localhost:7017/api/Books/', requests.session())
 #

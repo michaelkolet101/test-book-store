@@ -8,7 +8,7 @@ class Book(baseObj):
                  amountInStock: int,
                  imageUrl: str,
                  authorId: int,
-                 id: int):
+                 id: int=None):
 
         self._name = name
         self._description = description
